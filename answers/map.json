@@ -1,0 +1,20 @@
+{
+ "items": {
+  "И1": {"emails": ["E32", "E35"], "chat": [], "closing": null},
+  "И2": {"emails": ["E33"], "chat": [], "closing": null},
+  "И3": {"emails": ["E14"], "chat": ["C068"], "closing": null},
+  "И4": {"emails": ["E30"], "chat": ["C073"], "closing": null},
+  "И5": {"emails": ["E05", "E15", "E29"], "chat": [], "closing": null},
+  "И6": {"emails": ["E28"], "chat": [], "closing": null},
+  "И7": {"emails": ["E11"], "chat": [], "closing": null},
+  "И8": {"emails": ["E22"], "chat": [], "closing": null},
+  "И9": {"emails": ["E09", "E12"], "chat": ["C037"], "closing": "C037"},
+  "И10": {"emails": ["E06"], "chat": ["C019", "C020"], "closing": "C020"},
+  "И11": {"emails": ["E23"], "chat": ["C053"], "closing": "C053"},
+  "И12": {"emails": ["E08"], "chat": ["C074"], "closing": null},
+  "И13": {"emails": [], "chat": ["C026", "C062"], "closing": null},
+  "И14": {"emails": ["E03"], "chat": ["C067"], "closing": null}
+ },
+ "noise": ["E01", "E02", "E04", "E07", "E10", "E13", "E17", "E18", "E19", "E20", "E21", "E24", "E25", "E26", "E31", "E34", "E36", "E38", "E39", "E40"],
+ "personal": ["E16", "E27", "E37"]
+}
