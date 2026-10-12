@@ -1,0 +1,3 @@
+Reason: first attempt — claude-sonnet-5-5 high, blind run for the hackathon week-3 day plan; the folder holds only the instruction, one inbox and one chat.
+
+В этой папке три файла: INSTRUCTION.md, inbox.md и chat.md. Прочитай INSTRUCTION.md и выполни его над inbox.md и chat.md. Других файлов не читай и не ищи. Ответ — только итоговый Markdown из четырёх разделов, как требует инструкция, без вступлений.

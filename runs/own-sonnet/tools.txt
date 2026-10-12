@@ -1,0 +1,3 @@
+Read {"file_path": "<папка прогона>/INSTRUCTION.m
+Read {"file_path": "<папка прогона>/inbox.md"}
+Read {"file_path": "<папка прогона>/chat.md"}
