@@ -1,0 +1,4 @@
+/bin/bash -lc 'cat INSTRUCTION.md inbox.md chat.md'
+/bin/bash -lc "wc -l inbox.md chat.md && sed -n '1,220p' inbox.md"
+/bin/bash -lc "sed -n '221,500p' inbox.md"
+/bin/bash -lc "sed -n '501,743p' inbox.md"
