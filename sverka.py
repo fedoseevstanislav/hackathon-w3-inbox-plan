@@ -53,7 +53,7 @@ def main(plan_path, inbox_path, chat_path, key_path):
     have = {"inbox.md": anchors(inbox_path), "chat.md": anchors(chat_path)}
     out, ok = [], True
 
-    out.append("| Ключ | Строка плана | Раздел (ключ → план) | Срок (ключ → план) | Закрывшее сообщение | Черновик |")
+    out.append("| Ключ | Строка плана | Раздел (ключ → план) | Срок (ключ → план) | Ссылка на закрывшее сообщение | Черновик: «Кому» и 2+ фразы |")
     out.append("|---|---|---|---|---|---|")
     used = set()
     for kid, k in key["items"].items():
@@ -76,10 +76,10 @@ def main(plan_path, inbox_path, chat_path, key_path):
             due = f"{k['date']} {k['time'] or ''} → {r['due'][:40]} {'✓' if d_ok else '✗'}"
         clo = "—"
         if k["closing"]:
-            c_ok = k["closing"] in r["ids"]
+            c_ok = k["closing"].lower() in [a for _, a in r["links"]]
             ok &= c_ok
             clo = f"{k['closing']} {'да' if c_ok else 'нет'}"
-        dr_ok = len(r["draft"]) >= 20 and ":" in r["draft"]
+        dr_ok = bool(re.search(r"кому", r["draft"], re.I)) and len(re.findall(r"[.!?…]", r["draft"])) >= 2
         ok &= dr_ok
         out.append(f"| {kid} | {r['id']} | {k['section']} → {r['section']} {'✓' if sec_ok else '✗'} "
                    f"| {due} | {clo} | {'есть' if dr_ok else 'нет'} |")
