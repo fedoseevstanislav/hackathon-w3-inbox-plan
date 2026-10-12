@@ -1,0 +1,3 @@
+/bin/bash -lc 'cat INSTRUCTION.md inbox.md chat.md'
+/bin/bash -lc "rg -n '"'^## E|''^<a id="e'"' inbox.md"
+/bin/bash -lc "sed -n '157,581p' inbox.md"
