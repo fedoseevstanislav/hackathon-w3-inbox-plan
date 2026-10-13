@@ -135,4 +135,4 @@ def main(plan_path, inbox_path, chat_path, key_path, *more):
 
 
 if __name__ == "__main__":
-    sys.exit(main(*sys.argv[1:5]))
+    sys.exit(main(*sys.argv[1:]))

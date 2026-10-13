@@ -1,0 +1,3 @@
+Reason: first attempt — gpt-6-luna high (extraction lane), blind run for the hackathon week-3 stage-2 day plan; the folder holds only the instruction, inbox, chat, sent emails and notes.
+
+В этой папке пять файлов: INSTRUCTION.md, inbox.md, chat.md, sent.md и notes.md. Прочитай INSTRUCTION.md и выполни его над остальными четырьмя файлами. Других файлов не читай и не ищи. Ответ — только итоговый Markdown из четырёх разделов, как требует инструкция, без вступлений.

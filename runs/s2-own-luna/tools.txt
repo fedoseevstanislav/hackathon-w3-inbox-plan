@@ -1,0 +1,5 @@
+/bin/bash -lc 'cat INSTRUCTION.md inbox.md chat.md sent.md notes.md'
+/bin/bash -lc "wc -l inbox.md && rg -n '"'^## E|''^<a id="e'"' inbox.md"
+/bin/bash -lc "sed -n '1,210p' inbox.md"
+/bin/bash -lc "sed -n '211,445p' inbox.md"
+/bin/bash -lc "sed -n '444,743p' inbox.md"

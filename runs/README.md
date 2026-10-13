@@ -6,6 +6,8 @@
 |---|---|
 | `gen` — ящик и чат по ключу | `legend.json`, `prompt.md` |
 | `v1-own-*`, `v2-own-*`, `v3-own-*` — план по нашим данным | `INSTRUCTION.md` (версии v1, v2, v3), `inbox.md`, `chat.md`, `prompt.txt` |
+| `gen-2` — отправленные письма и заметки по ключу этапа 2 | `legend.json`, `legend-2.json`, `inbox.md`, `chat.md`, `prompt.md` |
+| `s2-own-*` — план этапа 2 | `INSTRUCTION.md` (v4), `inbox.md`, `chat.md`, `sent.md`, `notes.md`, `prompt.txt` |
 
 ## Команды
 
