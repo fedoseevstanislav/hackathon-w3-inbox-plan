@@ -90,11 +90,11 @@ def main(plan_path, inbox_path, chat_path, key_path, *more):
             ok &= g_ok
             st2.append(f"догадка {'да' if g_ok else 'нет'}")
         if k.get("promise"):
-            p_ok = "обещ" in r["what"].lower()
+            p_ok = r["what"].lower().startswith("вы обещал")
             ok &= p_ok
             st2.append(f"«обещали» {'да' if p_ok else 'нет'}")
         if k.get("contradiction"):
-            c2_ok = set(k["contradiction"]) <= set(r["ids"])
+            c2_ok = {c.lower() for c in k["contradiction"]} <= {a for _, a in r["links"]}
             ok &= c2_ok
             st2.append(f"обе ссылки {'+'.join(k['contradiction'])} {'да' if c2_ok else 'нет'}")
         secs_txt = "/".join(secs)
