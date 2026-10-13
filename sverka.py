@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Сверка плана на день с ключом.
 
-    python3 sverka.py plan.md inbox.md chat.md key.json
+    python3 sverka.py plan.md inbox.md chat.md key.json [sent.md notes.md]
 
 plan.md  — результат по INSTRUCTION.md (раздел «1. План» с таблицей).
-inbox.md, chat.md — данные, по которым собран план (для проверки ссылок).
+inbox.md, chat.md (и на этапе 2 sent.md, notes.md) — данные, по которым собран план (для проверки ссылок).
 key.json — ключ (см. make_key.py).
 
 Печатает сверку в Markdown; код возврата 0, если все пункты ключа найдены в верном
@@ -14,7 +14,7 @@ import json
 import re
 import sys
 
-ID = re.compile(r"\b([EC]\d{2,3})\b")
+ID = re.compile(r"\b([ECSN]\d{2,3})\b")
 LINK = re.compile(r"\]\(([^)#\s]+)#([a-z]\d{2,3})\)")
 DATE = re.compile(r"\b(\d{2}\.\d{2}\.\d{4})\b")
 
@@ -47,29 +47,32 @@ def read_plan(path):
     return rows
 
 
-def main(plan_path, inbox_path, chat_path, key_path):
+def main(plan_path, inbox_path, chat_path, key_path, *more):
     key = json.load(open(key_path, encoding="utf-8"))
     rows = read_plan(plan_path)
     have = {"inbox.md": anchors(inbox_path), "chat.md": anchors(chat_path)}
+    for m in more:
+        have[m.split("/")[-1]] = anchors(m)
     out, ok = [], True
 
-    out.append("| Ключ | Строка плана | Раздел (ключ → план) | Срок (ключ → план) | Ссылка на закрывшее сообщение | Черновик: «Кому» и 2+ фразы |")
-    out.append("|---|---|---|---|---|---|")
+    out.append("| Ключ | Строка плана | Раздел (ключ → план) | Срок (ключ → план) | Ссылка на закрывшее сообщение | Черновик: «Кому» и 2+ фразы | Этап 2 |")
+    out.append("|---|---|---|---|---|---|---|")
     used = set()
     for kid, k in key["items"].items():
         cand = sorted(((len(set(r["ids"]) & set(k["ids"])), r) for r in rows), key=lambda x: -x[0])
         if not cand or cand[0][0] == 0:
             ok = False
-            out.append(f"| {kid} | — | {k['section']} → — ✗ | — | — | — |")
+            out.append(f"| {kid} | — | {k['section']} → — ✗ | — | — | — | — |")
             continue
         r = cand[0][1]
         used.add(r["id"])
-        sec_ok = r["section"] == k["section"].replace("ё", "е")
+        secs = k["section"] if isinstance(k["section"], list) else [k["section"]]
+        sec_ok = r["section"] in [s.replace("ё", "е") for s in secs]
         ok &= sec_ok
         due = "—"
         if k["date"]:
             dates = DATE.findall(r["due"])
-            d_ok = bool(dates) and dates[0] == k["date"]
+            d_ok = bool(dates) and dates[0] in [k["date"]] + k.get("alt_dates", [])
             if k["time"]:
                 d_ok &= k["time"] in r["due"]
             ok &= d_ok
@@ -81,14 +84,32 @@ def main(plan_path, inbox_path, chat_path, key_path):
             clo = f"{k['closing']} {'да' if c_ok else 'нет'}"
         dr_ok = bool(re.search(r"кому", r["draft"], re.I)) and len(re.findall(r"[.!?…]", r["draft"])) >= 2
         ok &= dr_ok
-        out.append(f"| {kid} | {r['id']} | {k['section']} → {r['section']} {'✓' if sec_ok else '✗'} "
-                   f"| {due} | {clo} | {'есть' if dr_ok else 'нет'} |")
+        st2 = []
+        if k.get("guess"):
+            g_ok = "догадк" in r["due"].lower()
+            ok &= g_ok
+            st2.append(f"догадка {'да' if g_ok else 'нет'}")
+        if k.get("promise"):
+            p_ok = "обещ" in r["what"].lower()
+            ok &= p_ok
+            st2.append(f"«обещали» {'да' if p_ok else 'нет'}")
+        if k.get("contradiction"):
+            c2_ok = set(k["contradiction"]) <= set(r["ids"])
+            ok &= c2_ok
+            st2.append(f"обе ссылки {'+'.join(k['contradiction'])} {'да' if c2_ok else 'нет'}")
+        secs_txt = "/".join(secs)
+        out.append(f"| {kid} | {r['id']} | {secs_txt} → {r['section']} {'✓' if sec_ok else '✗'} "
+                   f"| {due} | {clo} | {'есть' if dr_ok else 'нет'} | {'; '.join(st2) or '—'} |")
 
     out.append("")
     noise = set(key["noise"])
     noisy = [(r["id"], sorted(set(r["ids"]) & noise)) for r in rows if set(r["ids"]) & noise]
     ok &= not noisy
     out.append(f"Шум в плане (проверка 4): {'нет' if not noisy else noisy}.")
+    for kid, ids in key.get("not_open", {}).items():
+        open_rows = [r["id"] for r in rows if set(r["ids"]) & set(ids) and r["section"] != "решилось без вас"]
+        ok &= not open_rows
+        out.append(f"Выполненное обещание {kid} ({', '.join(ids)}) открытым делом: {'нет' if not open_rows else open_rows}.")
 
     extra = [r for r in rows if r["id"] not in used]
     personal = set(key.get("personal", []))
