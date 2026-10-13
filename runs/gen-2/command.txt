@@ -1,0 +1,2 @@
+cd <папка прогона>   # legend.json, legend-2.json, inbox.md, chat.md, prompt.md
+claude -p --model claude-sonnet-5-5 --effort high --allowedTools "Read,Write,Edit" --permission-mode acceptEdits "$(cat prompt.md)" </dev/null > answer.txt
