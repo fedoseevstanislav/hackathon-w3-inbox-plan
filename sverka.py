@@ -90,7 +90,7 @@ def main(plan_path, inbox_path, chat_path, key_path, *more):
             ok &= g_ok
             st2.append(f"догадка {'да' if g_ok else 'нет'}")
         if k.get("promise"):
-            p_ok = r["what"].lower().startswith("вы обещал")
+            p_ok = r["what"].lower().startswith("вы обещали")
             ok &= p_ok
             st2.append(f"«обещали» {'да' if p_ok else 'нет'}")
         if k.get("contradiction"):
