@@ -8,6 +8,7 @@
 | `v1-own-*`, `v2-own-*`, `v3-own-*` — план по нашим данным | `INSTRUCTION.md` (версии v1, v2, v3), `inbox.md`, `chat.md`, `prompt.txt` |
 | `gen-2` — отправленные письма и заметки по ключу этапа 2 | `legend.json`, `legend-2.json`, `inbox.md`, `chat.md`, `prompt.md` |
 | `s2-own-*` — план этапа 2 | `INSTRUCTION.md` (v4), `inbox.md`, `chat.md`, `sent.md`, `notes.md`, `prompt.txt` |
+| `s3-own-*` — план этапа 3 по общему ящику ведущих | `INSTRUCTION.md` (v4), `inbox/` (40 файлов), `sent/` (10 файлов), `chat.md`, `notes.md`, `prompt.txt` |
 
 ## Команды
 
@@ -37,3 +38,5 @@ codex exec -m gpt-6-luna -c model_reasoning_effort=high --skip-git-repo-check -s
 - `transcript.jsonl` — транскрипт, из которого убрана строка с настройками машины (`system/init`), а путь к папке заменён.
 
 Каждая версия запущена один раз на модель, перезапусков внутри версии не было.
+
+Этап 3: Sonnet запускался с `--allowedTools "Read,Glob"` (данные лежат в папках). Bash ему тоже был доступен через настройки машины, и он им читал файлы; все вызовы — в `runs/s3-own-sonnet/tools.txt`. Путь к папке сохранённого вывода команд в транскрипте заменён.

@@ -1,0 +1,5 @@
+/bin/bash -lc 'cat INSTRUCTION.md && cat inbox/* sent/* chat.md notes.md'
+/bin/bash -lc 'rg --files inbox sent'
+/bin/bash -lc 'cat inbox/E08.md inbox/E09.md inbox/E10.md inbox/E11.md inbox/E12.md inbox/E13.md inbox/E14.md inbox/E15.md inbox/E16.md inbox/E17.md inbox/E18.md inbox/E19.md inbox/E20.md inbox/E21.md inbox/E22.md'
+/bin/bash -lc 'cat inbox/E23.md inbox/E24.md inbox/E25.md inbox/E26.md inbox/E27.md inbox/E28.md inbox/E29.md inbox/E30.md inbox/E31.md inbox/E32.md inbox/E33.md inbox/E34.md inbox/E35.md inbox/E36.md inbox/E37.md inbox/E38.md inbox/E39.md inbox/E40.md'
+/bin/bash -lc 'cat inbox/E01.md inbox/E02.md inbox/E03.md inbox/E04.md inbox/E05.md inbox/E06.md inbox/E07.md'

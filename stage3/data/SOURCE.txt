@@ -1,0 +1,1 @@
+Источник: https://github.com/ai-mindset-org/hackathon-lab/tree/4a2ea83/tasks/w3/stage3 (коммит 4a2ea83, файлы .md без изменений; .jsonl-копии не брали)

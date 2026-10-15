@@ -1,0 +1,7 @@
+Read {"file_path": "<папка прогона>/INSTRUCTION.md"}
+Bash {"command": "ls inbox sent | head -100 && wc -c chat.md notes.md && ls inbox | wc -l && ls sent | wc -l"}
+Bash {"command": "for f in inbox/*.md; do echo \"=== $f\"; cat $f; done"}
+Bash {"command": "for f in sent/*.md; do echo \"=== $f\"; cat $f; done; echo ==== CHAT; cat chat.md; echo ==== NOTES; cat notes.md"}
+Bash {"command": "tail -n +1 inbox/*.md"}
+Bash {"command": "tail -n +1 sent/*.md chat.md notes.md"}
+Read {"file_path": "<папка сохранённого вывода команд>/bnxgbk2vc.txt", "offset": 40}
